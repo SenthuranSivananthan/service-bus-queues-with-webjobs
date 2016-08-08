@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.WebJobs;
+﻿using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure.WebJobs;
+using System.Configuration;
 
 namespace MessageReceiverWebJob
 {
@@ -6,6 +8,8 @@ namespace MessageReceiverWebJob
     {
         static void Main()
         {
+            TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["AzureApplicationInsights.InstrumentationKey"];
+
             JobHostConfiguration config = new JobHostConfiguration();
             config.UseServiceBus();
 
